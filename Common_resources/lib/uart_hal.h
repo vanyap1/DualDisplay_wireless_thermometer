@@ -43,6 +43,5 @@ uint16_t uart_read_count(void);
 uint8_t uart_read(void);
 uint8_t uart_flush(void);
 uint8_t parseString(char* input);
-
-
+uint16_t extractValue(char *str, uint8_t param_number);
 #endif /* UART_HAL_H_ */

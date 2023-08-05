@@ -20,7 +20,7 @@
 #include "string.h"
 #include "float.h"
 #include "stdbool.h"
-#include <stdio.h>
+//#include <stdio.h>
 //04.1f
 gpio health = {(uint8_t *)&PORTB , PORTB5};
 gpio lcd_blk = {(uint8_t *)&PORTE , PORTE2};
@@ -30,6 +30,13 @@ static FILE mystdout = FDEV_SETUP_STREAM((void *)uart_send_byte, NULL, _FDEV_SET
 u8g2_t u8g2;
 uint8_t serial_buff[128];
 uint16_t att = 0;
+
+
+uint16_t  RFID=1298;  //1298
+uint16_t  DVID=4517;  //4517
+uint16_t  RFC=10;
+uint16_t  BAUD=4;  
+
 
 int main(void)
 {
@@ -72,6 +79,29 @@ int main(void)
 	DS18x20_SetResolution(pDS18x20,CONF_RES_10b);
 	DS18x20_WriteScratchpad(pDS18x20);
 	
+	set_pin_level(&RF_mode, false);
+	_delay_ms(500);
+	//printf("AT+CLSS\r\n");
+	//_delay_ms(200);
+	//printf("AT+RFID\r\n");
+	//_delay_ms(200);
+	//printf("AT+DVID\r\n");
+	//_delay_ms(200);
+	//printf("AT+RFC\r\n");
+	//_delay_ms(200);
+	//printf("AT+POWE\r\n");
+	//_delay_ms(200);
+	
+	
+	printf("AT+RFID%04u\r\n" , RFID);
+	_delay_ms(500);
+	printf("AT+DVID%04u\r\n" , DVID);
+	_delay_ms(500);
+	printf("AT+RFC%03u\r\n" , RFC);
+	_delay_ms(500);
+	set_pin_level(&RF_mode, true);
+	_delay_ms(500);
+	
 	
 	u8g2_SendBuffer(&u8g2);
     double temp = 0.0f;
@@ -102,7 +132,7 @@ int main(void)
 			u8g2_DrawStr(&u8g2, 1, 10, (char *)"DS18B20 CRC ERROR");
 			u8g2_DrawStr(&u8g2, 1, 20, (char *)"TRU TO INIT AGAIN");
 			u8g2_SendBuffer(&u8g2);
-			printf("val:ffff:ffff:e\n\r");
+			printf("val:ffff:ffff:e\r\n");
 			
 			if (DS18x20_Init(pDS18x20,&PORTB,1))
 			{
@@ -116,14 +146,14 @@ int main(void)
 			_delay_ms(200);
 		}
 		if (serial_complete()){
-			uint8_t const *data_p = (void *)serial_read_data();
-			uint8_t val = parseString((void *)data_p);
+			uint8_t const *data_p = (uint8_t *)serial_read_data();
+			uint8_t val = parseString((uint8_t *)data_p);
 			if (val < 32){
 				att = val;
 			}else{
 				att = 31;
 			}
-			u8g2_DrawStr(&u8g2, 1, 8, (void*)data_p);
+			u8g2_DrawStr(&u8g2, 1, 8, (uint8_t *)data_p);
 			u8g2_SendBuffer(&u8g2);
 		}
     }

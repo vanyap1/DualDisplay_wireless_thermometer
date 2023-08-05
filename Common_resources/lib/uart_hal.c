@@ -134,6 +134,34 @@ uint8_t uart_read(void){
 	return data;
 }
 uint8_t parseString(char* input){
-	char* token = strtok(input, " ");
+	char* token = strtok(input, ":");
 	return atoi(token + 5);
+}
+
+uint16_t extractValue(char *str, uint8_t param_number) {
+char *copy = strdup(str); // Копіюємо рядок, оскільки strtok руйнує оригінальний рядок
+char *token;
+char *saveptr;
+int current_param = 0;
+
+// Розділити рядок на токени за допомогою функції strtok
+token = strtok_r(copy, ":", &saveptr);
+
+while (token != NULL) {
+	if (current_param == param_number) {
+		// Перевірка на валідний шістнадцятковий формат (4 цифри)
+		uint16_t value = (uint16_t)strtol(token, NULL, 16);
+		free(copy); // Звільнити пам'ять після виконання функції
+		return value;
+	}
+
+	// Перейти до наступного токену
+	token = strtok_r(NULL, ":", &saveptr);
+	current_param++;
+}
+
+free(copy); // Звільнити пам'ять після виконання функції
+
+// Якщо параметр з таким номером не був знайдений, повернути 0 або код помилки
+return 0;
 }

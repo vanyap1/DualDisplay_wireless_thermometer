@@ -26,6 +26,8 @@
 gpio health = {(uint8_t *)&PORTB , PORTB5};
 gpio lcd_blk = {(uint8_t *)&PORTE , PORTE2};
 gpio RF_mode = {(uint8_t *)&PORTD , PORTD4};
+gpio buzer = {(uint8_t *)&PORTB , PORTB1};
+
 
 static FILE mystdout = FDEV_SETUP_STREAM((void *)uart_send_byte, NULL, _FDEV_SETUP_WRITE);
 u8g2_t u8g2;
@@ -37,6 +39,11 @@ uint16_t  RFID=1298;  //1298
 uint16_t  DVID=4517;  //4517
 uint16_t  RFC=10;
 uint16_t  BAUD=4;
+
+
+uint16_t param_value1;
+uint16_t param_value2;
+
 
 int main(void)
 {
@@ -62,20 +69,21 @@ int main(void)
     
     set_pin_dir(&lcd_blk , PORT_DIR_OUT); set_pin_level(&lcd_blk, true);
     set_pin_dir(&RF_mode , PORT_DIR_OUT); set_pin_level(&RF_mode, true);
+	set_pin_dir(&buzer , PORT_DIR_OUT); set_pin_level(&buzer, false);
     
     
     u8g2_ClearBuffer(&u8g2);
     //u8g2_SetFont(&u8g2, u8g2_font_5x8_t_cyrillic);
 
     u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
-    u8g2_DrawStr(&u8g2, 1, 10, (char *)"RX MODULE");
+    u8g2_DrawStr(&u8g2, 1, 10, (void *)"RX MODULE");
 	
 	sprintf(display_line, "RFID-%04u", RFID);
-	u8g2_DrawStr(&u8g2, 1, 20, (char *)display_line);
+	u8g2_DrawStr(&u8g2, 1, 20, (void *)display_line);
     sprintf(display_line, "DVID-%04u\n; RFC-%03u",DVID);
-    u8g2_DrawStr(&u8g2, 1, 30, (char *)display_line);
+    u8g2_DrawStr(&u8g2, 1, 30, (void *)display_line);
 	sprintf(display_line, "RFC-%03u", RFC);
-	u8g2_DrawStr(&u8g2, 1, 40, (char *)display_line);
+	u8g2_DrawStr(&u8g2, 1, 40, (void *)display_line);
 	u8g2_SendBuffer(&u8g2);
 	
 	set_pin_level(&RF_mode, false);
@@ -105,30 +113,85 @@ int main(void)
    
    
     double temp = 0.0f;
-    while (1) 
+	bool newDataAvailable = true;
+	bool TxResponseDataValid = false;
+	bool overheatDetect = false;
+    uint16_t tempRaw = 0;
+	uint16_t dataValidCounter = 0;
+	while (1) 
     {
-		if (serial_complete()){
-			uint8_t const *data_p = (void *)serial_read_data();
-			uint16_t param_value1 = extractValue(data_p, 1);
-			uint16_t param_value2 = extractValue(data_p, 2);
-			if(param_value1 = param_value2){
-				temp = param_value1*0.1;
-				if (param_value1>999){
-					sprintf(display_line , "%03d ", (uint16_t)temp);
-					}else{
-					sprintf(display_line , "%04.1f", temp);
-				}
-								
-				u8g2_SetFont(&u8g2, u8g2_font_spleen32x64_mf);
-				u8g2_DrawStr(&u8g2, 1, 52, (char *)display_line);
-				
-				u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
-				u8g2_DrawStr(&u8g2, 1, 10, (char *)data_p);
-				
-			}
-			u8g2_SendBuffer(&u8g2);
-		}
 		
+		if(newDataAvailable){
+			
+			if(TxResponseDataValid){
+			if (tempRaw>999){
+				sprintf(display_line , "%03d ", (uint16_t)temp);
+				}else{
+				sprintf(display_line , "%04.1f", temp);
+			}
+			u8g2_SetFont(&u8g2, u8g2_font_spleen32x64_mf);
+			u8g2_ClearBuffer(&u8g2);
+			u8g2_DrawStr(&u8g2, 1, 52, (uint8_t *)display_line);
+			
+			if (TxResponseDataValid){
+				sprintf(charArray, "%04u", dataValidCounter);
+			}else{
+				sprintf(charArray, "ERROR");
+			}
+			
+			u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
+			u8g2_DrawStr(&u8g2, 1, 10, (uint8_t *)charArray);
+			u8g2_SendBuffer(&u8g2);
+			newDataAvailable = false;
+		
+			}else{
+				
+				sprintf(display_line , "ERR!");
+				u8g2_SetFont(&u8g2, u8g2_font_spleen32x64_mf);
+				u8g2_ClearBuffer(&u8g2);
+				u8g2_DrawStr(&u8g2, 1, 52, (uint8_t *)display_line);
+				u8g2_SendBuffer(&u8g2);
+				
+			}}
+		
+		
+		if (serial_complete()){
+			uint8_t *data_p = (uint8_t *)serial_read_data();
+			param_value1 = extractValue(data_p, 1);
+			param_value2 = extractValue(data_p, 2);
+			if(param_value1 = param_value2){
+				if (param_value1 > 850){
+					overheatDetect = true;
+				}else{
+					overheatDetect = false;
+				}
+				temp = param_value1*0.1;
+				tempRaw = param_value1;
+				newDataAvailable = true;
+				TxResponseDataValid = true;
+				dataValidCounter = 0;
+			}
+			
+		}
+	if (dataValidCounter < 40){
+		dataValidCounter++;
+	}else{
+		TxResponseDataValid = false;
+		newDataAvailable = true;
+		dataValidCounter = 0;
+	}
+	
+	if(overheatDetect == true || TxResponseDataValid == false){
+		toggle_pin_level(&lcd_blk);
+		toggle_pin_level(&buzer);
+		
+	}else{
+		set_pin_level(&lcd_blk, true);
+		set_pin_level(&buzer, false);
+	}
+	
+	
+	_delay_ms(50);	
     }
 }
 

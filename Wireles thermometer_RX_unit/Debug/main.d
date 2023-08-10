@@ -29,6 +29,7 @@ main.d main.o: .././main.c .././config.h \
  ../../Common_resources/lib/twi_hal.h \
  ../../Common_resources/lib/uart_hal.h ../../Common_resources/lib/rtc.h \
  ../../Common_resources/lib/ds18S20.h \
+ ../../Common_resources/lib/wdt_hal.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\float.h
 
 .././config.h:
@@ -98,5 +99,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../../Common_resources/lib/rtc.h:
 
 ../../Common_resources/lib/ds18S20.h:
+
+../../Common_resources/lib/wdt_hal.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\float.h:

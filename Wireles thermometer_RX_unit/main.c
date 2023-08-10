@@ -18,6 +18,8 @@
 #include "twi_hal.h"
 #include "rtc.h"
 #include "ds18S20.h"
+#include "wdt_hal.h"
+
 #include "string.h"
 #include "float.h"
 #include "stdbool.h"
@@ -48,8 +50,13 @@ uint16_t param_value2;
 int main(void)
 {
 	
+	WDT_prescaler_change(0, wdt_timeout_1s);
+   
     sei();
     stdout = &mystdout;
+    //WDT_enable();
+	//WDT_off(1);
+   
     
     
     
@@ -67,7 +74,7 @@ int main(void)
     u8g2_SetFlipMode(&u8g2, 1);
     u8g2_SetContrast(&u8g2, 120);
     
-    set_pin_dir(&lcd_blk , PORT_DIR_OUT); set_pin_level(&lcd_blk, true);
+    set_pin_dir(&lcd_blk , PORT_DIR_OUT);
     set_pin_dir(&RF_mode , PORT_DIR_OUT); set_pin_level(&RF_mode, true);
 	set_pin_dir(&buzer , PORT_DIR_OUT); set_pin_level(&buzer, false);
     
@@ -84,6 +91,7 @@ int main(void)
     u8g2_DrawStr(&u8g2, 1, 30, (void *)display_line);
 	sprintf(display_line, "RFC-%03u", RFC);
 	u8g2_DrawStr(&u8g2, 1, 40, (void *)display_line);
+	u8g2_DrawStr(&u8g2, 1, 50, (void *)"Watchdog run" );
 	u8g2_SendBuffer(&u8g2);
 	
 	set_pin_level(&RF_mode, false);
@@ -110,7 +118,8 @@ int main(void)
 	_delay_ms(500);
 	u8g2_ClearBuffer(&u8g2);
 	u8g2_SendBuffer(&u8g2);
-   
+	
+	
    
     double temp = 0.0f;
 	bool newDataAvailable = true;
@@ -118,6 +127,7 @@ int main(void)
 	bool overheatDetect = false;
     uint16_t tempRaw = 0;
 	uint16_t dataValidCounter = 0;
+	set_pin_level(&lcd_blk, true);
 	while (1) 
     {
 		
@@ -143,7 +153,7 @@ int main(void)
 			u8g2_DrawStr(&u8g2, 1, 10, (uint8_t *)charArray);
 			u8g2_SendBuffer(&u8g2);
 			newDataAvailable = false;
-		
+			wdr();
 			}else{
 				
 				sprintf(display_line , "ERR!");

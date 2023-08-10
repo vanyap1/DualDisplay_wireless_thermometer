@@ -163,6 +163,7 @@ C_SRCS +=  \
 ../../Common_resources/lib/rtc.c \
 ../../Common_resources/lib/twi_hal.c \
 ../../Common_resources/lib/uart_hal.c \
+../../Common_resources/lib/wdt_hal.c \
 ../main.c
 
 
@@ -297,6 +298,7 @@ lib/gpio_driver.o \
 lib/rtc.o \
 lib/twi_hal.o \
 lib/uart_hal.o \
+lib/wdt_hal.o \
 main.o
 
 OBJS_AS_ARGS +=  \
@@ -424,6 +426,7 @@ lib/gpio_driver.o \
 lib/rtc.o \
 lib/twi_hal.o \
 lib/uart_hal.o \
+lib/wdt_hal.o \
 main.o
 
 C_DEPS +=  \
@@ -551,6 +554,7 @@ lib/gpio_driver.d \
 lib/rtc.d \
 lib/twi_hal.d \
 lib/uart_hal.d \
+lib/wdt_hal.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
@@ -678,6 +682,7 @@ lib/gpio_driver.d \
 lib/rtc.d \
 lib/twi_hal.d \
 lib/uart_hal.d \
+lib/wdt_hal.d \
 main.d
 
 OUTPUT_FILE_PATH +=Wireles\ thermometer_RX_unit.elf
@@ -1556,6 +1561,13 @@ lib/twi_hal.o: ../../Common_resources/lib/twi_hal.c
 	
 
 lib/uart_hal.o: ../../Common_resources/lib/uart_hal.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I".." -I"../../Common_resources/csrc" -I"../../Common_resources/lib"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+lib/wdt_hal.o: ../../Common_resources/lib/wdt_hal.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I".." -I"../../Common_resources/csrc" -I"../../Common_resources/lib"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

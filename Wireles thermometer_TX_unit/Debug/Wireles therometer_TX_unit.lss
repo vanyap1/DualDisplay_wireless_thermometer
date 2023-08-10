@@ -3,13 +3,13 @@ Wireles therometer_TX_unit.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000015a  00800100  00006f48  00006fdc  2**0
+  0 .data         0000015c  00800100  00006f48  00006fdc  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00006f48  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000582  0080025a  0080025a  00007136  2**0
+  2 .bss          00000582  0080025c  0080025c  00007138  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  00007136  2**0
+  3 .comment      0000005c  00000000  00000000  00007138  2**0
                   CONTENTS, READONLY
   4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00007194  2**2
                   CONTENTS, READONLY
@@ -8146,15 +8146,15 @@ Disassembly of section .text:
     3ffa:	02 c0       	rjmp	.+4      	;  0x4000
     3ffc:	05 90       	lpm	r0, Z+
     3ffe:	0d 92       	st	X+, r0
-    4000:	aa 35       	cpi	r26, 0x5A	; 90
+    4000:	ac 35       	cpi	r26, 0x5C	; 92
     4002:	b1 07       	cpc	r27, r17
     4004:	d9 f7       	brne	.-10     	;  0x3ffc
     4006:	27 e0       	ldi	r18, 0x07	; 7
-    4008:	aa e5       	ldi	r26, 0x5A	; 90
+    4008:	ac e5       	ldi	r26, 0x5C	; 92
     400a:	b2 e0       	ldi	r27, 0x02	; 2
     400c:	01 c0       	rjmp	.+2      	;  0x4010
     400e:	1d 92       	st	X+, r1
-    4010:	ac 3d       	cpi	r26, 0xDC	; 220
+    4010:	ae 3d       	cpi	r26, 0xDE	; 222
     4012:	b2 07       	cpc	r27, r18
     4014:	e1 f7       	brne	.-8      	;  0x400e
     4016:	0e 94 5e 2e 	call	0x5cbc	;  0x5cbc
@@ -8255,7 +8255,7 @@ Disassembly of section .text:
     40e4:	28 e0       	ldi	r18, 0x08	; 8
     40e6:	fc 01       	movw	r30, r24
     40e8:	20 83       	st	Z, r18
-    40ea:	8c e5       	ldi	r24, 0x5C	; 92
+    40ea:	8e e5       	ldi	r24, 0x5E	; 94
     40ec:	92 e0       	ldi	r25, 0x02	; 2
     40ee:	08 95       	ret
     40f0:	cf 92       	push	r12
@@ -11528,9 +11528,9 @@ Disassembly of section .text:
     5b8e:	80 91 02 01 	lds	r24, 0x0102	;  0x800102
     5b92:	08 95       	ret
     5b94:	10 92 02 01 	sts	0x0102, r1	;  0x800102
-    5b98:	10 92 dd 06 	sts	0x06DD, r1	;  0x8006dd
-    5b9c:	10 92 dc 06 	sts	0x06DC, r1	;  0x8006dc
-    5ba0:	8c e5       	ldi	r24, 0x5C	; 92
+    5b98:	10 92 df 06 	sts	0x06DF, r1	;  0x8006df
+    5b9c:	10 92 de 06 	sts	0x06DE, r1	;  0x8006de
+    5ba0:	8e e5       	ldi	r24, 0x5E	; 94
     5ba2:	96 e0       	ldi	r25, 0x06	; 6
     5ba4:	08 95       	ret
     5ba6:	1f 92       	push	r1
@@ -11542,31 +11542,31 @@ Disassembly of section .text:
     5bb2:	9f 93       	push	r25
     5bb4:	ef 93       	push	r30
     5bb6:	ff 93       	push	r31
-    5bb8:	e0 91 dc 06 	lds	r30, 0x06DC	;  0x8006dc
-    5bbc:	f0 91 dd 06 	lds	r31, 0x06DD	;  0x8006dd
+    5bb8:	e0 91 de 06 	lds	r30, 0x06DE	;  0x8006de
+    5bbc:	f0 91 df 06 	lds	r31, 0x06DF	;  0x8006df
     5bc0:	80 91 c6 00 	lds	r24, 0x00C6	;  0x8000c6
-    5bc4:	e4 5a       	subi	r30, 0xA4	; 164
+    5bc4:	e2 5a       	subi	r30, 0xA2	; 162
     5bc6:	f9 4f       	sbci	r31, 0xF9	; 249
     5bc8:	80 83       	st	Z, r24
-    5bca:	e0 91 dc 06 	lds	r30, 0x06DC	;  0x8006dc
-    5bce:	f0 91 dd 06 	lds	r31, 0x06DD	;  0x8006dd
-    5bd2:	e4 5a       	subi	r30, 0xA4	; 164
+    5bca:	e0 91 de 06 	lds	r30, 0x06DE	;  0x8006de
+    5bce:	f0 91 df 06 	lds	r31, 0x06DF	;  0x8006df
+    5bd2:	e2 5a       	subi	r30, 0xA2	; 162
     5bd4:	f9 4f       	sbci	r31, 0xF9	; 249
     5bd6:	80 81       	ld	r24, Z
     5bd8:	8a 30       	cpi	r24, 0x0A	; 10
     5bda:	51 f4       	brne	.+20     	;  0x5bf0
     5bdc:	81 e0       	ldi	r24, 0x01	; 1
     5bde:	80 93 02 01 	sts	0x0102, r24	;  0x800102
-    5be2:	e0 91 dc 06 	lds	r30, 0x06DC	;  0x8006dc
-    5be6:	f0 91 dd 06 	lds	r31, 0x06DD	;  0x8006dd
-    5bea:	e3 5a       	subi	r30, 0xA3	; 163
+    5be2:	e0 91 de 06 	lds	r30, 0x06DE	;  0x8006de
+    5be6:	f0 91 df 06 	lds	r31, 0x06DF	;  0x8006df
+    5bea:	e1 5a       	subi	r30, 0xA1	; 161
     5bec:	f9 4f       	sbci	r31, 0xF9	; 249
     5bee:	10 82       	st	Z, r1
-    5bf0:	80 91 dc 06 	lds	r24, 0x06DC	;  0x8006dc
-    5bf4:	90 91 dd 06 	lds	r25, 0x06DD	;  0x8006dd
+    5bf0:	80 91 de 06 	lds	r24, 0x06DE	;  0x8006de
+    5bf4:	90 91 df 06 	lds	r25, 0x06DF	;  0x8006df
     5bf8:	01 96       	adiw	r24, 0x01	; 1
-    5bfa:	90 93 dd 06 	sts	0x06DD, r25	;  0x8006dd
-    5bfe:	80 93 dc 06 	sts	0x06DC, r24	;  0x8006dc
+    5bfa:	90 93 df 06 	sts	0x06DF, r25	;  0x8006df
+    5bfe:	80 93 de 06 	sts	0x06DE, r24	;  0x8006de
     5c02:	ff 91       	pop	r31
     5c04:	ef 91       	pop	r30
     5c06:	9f 91       	pop	r25
@@ -11643,8 +11643,8 @@ Disassembly of section .text:
     5ca2:	10 92 03 01 	sts	0x0103, r1	;  0x800103
     5ca6:	80 93 c6 00 	sts	0x00C6, r24	;  0x8000c6
     5caa:	08 95       	ret
-    5cac:	68 e5       	ldi	r22, 0x58	; 88
-    5cae:	72 e0       	ldi	r23, 0x02	; 2
+    5cac:	69 eb       	ldi	r22, 0xB9	; 185
+    5cae:	71 e0       	ldi	r23, 0x01	; 1
     5cb0:	0e 94 5a 36 	call	0x6cb4	;  0x6cb4
     5cb4:	05 96       	adiw	r24, 0x05	; 5
     5cb6:	0e 94 59 35 	call	0x6ab2	;  0x6ab2
@@ -11663,8 +11663,8 @@ Disassembly of section .text:
     5cd2:	78 94       	sei
     5cd4:	8a e0       	ldi	r24, 0x0A	; 10
     5cd6:	91 e0       	ldi	r25, 0x01	; 1
-    5cd8:	90 93 d9 07 	sts	0x07D9, r25	;  0x8007d9
-    5cdc:	80 93 d8 07 	sts	0x07D8, r24	;  0x8007d8
+    5cd8:	90 93 db 07 	sts	0x07DB, r25	;  0x8007db
+    5cdc:	80 93 da 07 	sts	0x07DA, r24	;  0x8007da
     5ce0:	8c e0       	ldi	r24, 0x0C	; 12
     5ce2:	ee e1       	ldi	r30, 0x1E	; 30
     5ce4:	f1 e0       	ldi	r31, 0x01	; 1
@@ -11687,7 +11687,7 @@ Disassembly of section .text:
     5d06:	57 e2       	ldi	r21, 0x27	; 39
     5d08:	6e e5       	ldi	r22, 0x5E	; 94
     5d0a:	71 e0       	ldi	r23, 0x01	; 1
-    5d0c:	80 e6       	ldi	r24, 0x60	; 96
+    5d0c:	82 e6       	ldi	r24, 0x62	; 98
     5d0e:	97 e0       	ldi	r25, 0x07	; 7
     5d10:	0e 94 78 20 	call	0x40f0	;  0x40f0
     5d14:	40 e0       	ldi	r20, 0x00	; 0
@@ -11696,19 +11696,19 @@ Disassembly of section .text:
     5d1a:	80 e0       	ldi	r24, 0x00	; 0
     5d1c:	90 e0       	ldi	r25, 0x00	; 0
     5d1e:	0e 94 19 2e 	call	0x5c32	;  0x5c32
-    5d22:	80 e6       	ldi	r24, 0x60	; 96
+    5d22:	82 e6       	ldi	r24, 0x62	; 98
     5d24:	97 e0       	ldi	r25, 0x07	; 7
     5d26:	0e 94 20 29 	call	0x5240	;  0x5240
     5d2a:	60 e0       	ldi	r22, 0x00	; 0
-    5d2c:	80 e6       	ldi	r24, 0x60	; 96
+    5d2c:	82 e6       	ldi	r24, 0x62	; 98
     5d2e:	97 e0       	ldi	r25, 0x07	; 7
     5d30:	0e 94 2b 29 	call	0x5256	;  0x5256
     5d34:	61 e0       	ldi	r22, 0x01	; 1
-    5d36:	80 e6       	ldi	r24, 0x60	; 96
+    5d36:	82 e6       	ldi	r24, 0x62	; 98
     5d38:	97 e0       	ldi	r25, 0x07	; 7
     5d3a:	0e 94 36 29 	call	0x526c	;  0x526c
     5d3e:	68 e7       	ldi	r22, 0x78	; 120
-    5d40:	80 e6       	ldi	r24, 0x60	; 96
+    5d40:	82 e6       	ldi	r24, 0x62	; 98
     5d42:	97 e0       	ldi	r25, 0x07	; 7
     5d44:	0e 94 41 29 	call	0x5282	;  0x5282
     5d48:	61 e0       	ldi	r22, 0x01	; 1
@@ -11727,12 +11727,12 @@ Disassembly of section .text:
     5d68:	88 e1       	ldi	r24, 0x18	; 24
     5d6a:	91 e0       	ldi	r25, 0x01	; 1
     5d6c:	0e 94 4b 2d 	call	0x5a96	;  0x5a96
-    5d70:	80 e6       	ldi	r24, 0x60	; 96
+    5d70:	82 e6       	ldi	r24, 0x62	; 98
     5d72:	97 e0       	ldi	r25, 0x07	; 7
     5d74:	0e 94 51 20 	call	0x40a2	;  0x40a2
     5d78:	6b e8       	ldi	r22, 0x8B	; 139
     5d7a:	76 e3       	ldi	r23, 0x36	; 54
-    5d7c:	80 e6       	ldi	r24, 0x60	; 96
+    5d7c:	82 e6       	ldi	r24, 0x62	; 98
     5d7e:	97 e0       	ldi	r25, 0x07	; 7
     5d80:	0e 94 9c 24 	call	0x4938	;  0x4938
     5d84:	41 e0       	ldi	r20, 0x01	; 1
@@ -11745,19 +11745,19 @@ Disassembly of section .text:
     5d94:	a9 f0       	breq	.+42     	;  0x5dc0
     5d96:	6b e8       	ldi	r22, 0x8B	; 139
     5d98:	76 e3       	ldi	r23, 0x36	; 54
-    5d9a:	80 e6       	ldi	r24, 0x60	; 96
+    5d9a:	82 e6       	ldi	r24, 0x62	; 98
     5d9c:	97 e0       	ldi	r25, 0x07	; 7
     5d9e:	0e 94 9c 24 	call	0x4938	;  0x4938
-    5da2:	29 eb       	ldi	r18, 0xB9	; 185
+    5da2:	2b eb       	ldi	r18, 0xBB	; 187
     5da4:	31 e0       	ldi	r19, 0x01	; 1
     5da6:	4a e0       	ldi	r20, 0x0A	; 10
     5da8:	50 e0       	ldi	r21, 0x00	; 0
     5daa:	61 e0       	ldi	r22, 0x01	; 1
     5dac:	70 e0       	ldi	r23, 0x00	; 0
-    5dae:	80 e6       	ldi	r24, 0x60	; 96
+    5dae:	82 e6       	ldi	r24, 0x62	; 98
     5db0:	97 e0       	ldi	r25, 0x07	; 7
     5db2:	0e 94 46 24 	call	0x488c	;  0x488c
-    5db6:	80 e6       	ldi	r24, 0x60	; 96
+    5db6:	82 e6       	ldi	r24, 0x62	; 98
     5db8:	97 e0       	ldi	r25, 0x07	; 7
     5dba:	0e 94 67 20 	call	0x40ce	;  0x40ce
     5dbe:	ff cf       	rjmp	.-2      	;  0x5dbe
@@ -11785,7 +11785,7 @@ Disassembly of section .text:
     5df2:	8f 93       	push	r24
     5df4:	80 91 08 01 	lds	r24, 0x0108	;  0x800108
     5df8:	8f 93       	push	r24
-    5dfa:	87 ec       	ldi	r24, 0xC7	; 199
+    5dfa:	89 ec       	ldi	r24, 0xC9	; 201
     5dfc:	91 e0       	ldi	r25, 0x01	; 1
     5dfe:	9f 93       	push	r25
     5e00:	8f 93       	push	r24
@@ -11803,7 +11803,7 @@ Disassembly of section .text:
     5e1c:	8f 93       	push	r24
     5e1e:	80 91 06 01 	lds	r24, 0x0106	;  0x800106
     5e22:	8f 93       	push	r24
-    5e24:	85 ed       	ldi	r24, 0xD5	; 213
+    5e24:	87 ed       	ldi	r24, 0xD7	; 215
     5e26:	91 e0       	ldi	r25, 0x01	; 1
     5e28:	9f 93       	push	r25
     5e2a:	8f 93       	push	r24
@@ -11821,7 +11821,7 @@ Disassembly of section .text:
     5e46:	8f 93       	push	r24
     5e48:	80 91 04 01 	lds	r24, 0x0104	;  0x800104
     5e4c:	8f 93       	push	r24
-    5e4e:	83 ee       	ldi	r24, 0xE3	; 227
+    5e4e:	85 ee       	ldi	r24, 0xE5	; 229
     5e50:	91 e0       	ldi	r25, 0x01	; 1
     5e52:	9f 93       	push	r25
     5e54:	8f 93       	push	r24
@@ -11848,7 +11848,7 @@ Disassembly of section .text:
     5e82:	e1 f7       	brne	.-8      	;  0x5e7c
     5e84:	00 c0       	rjmp	.+0      	;  0x5e86
     5e86:	00 00       	nop
-    5e88:	80 e6       	ldi	r24, 0x60	; 96
+    5e88:	82 e6       	ldi	r24, 0x62	; 98
     5e8a:	97 e0       	ldi	r25, 0x07	; 7
     5e8c:	0e 94 67 20 	call	0x40ce	;  0x40ce
     5e90:	0f b6       	in	r0, 0x3f	; 63
@@ -11877,7 +11877,7 @@ Disassembly of section .text:
     5ec6:	6f 93       	push	r22
     5ec8:	7f 93       	push	r23
     5eca:	6f 93       	push	r22
-    5ecc:	80 ef       	ldi	r24, 0xF0	; 240
+    5ecc:	82 ef       	ldi	r24, 0xF2	; 242
     5ece:	91 e0       	ldi	r25, 0x01	; 1
     5ed0:	9f 93       	push	r25
     5ed2:	8f 93       	push	r24
@@ -11889,8 +11889,8 @@ Disassembly of section .text:
     5ee0:	c7 01       	movw	r24, r14
     5ee2:	b6 01       	movw	r22, r12
     5ee4:	0e 94 d4 30 	call	0x61a8	;  0x61a8
-    5ee8:	20 91 de 06 	lds	r18, 0x06DE	;  0x8006de
-    5eec:	30 91 df 06 	lds	r19, 0x06DF	;  0x8006df
+    5ee8:	20 91 e0 06 	lds	r18, 0x06E0	;  0x8006e0
+    5eec:	30 91 e1 06 	lds	r19, 0x06E1	;  0x8006e1
     5ef0:	0f 90       	pop	r0
     5ef2:	0f 90       	pop	r0
     5ef4:	0f 90       	pop	r0
@@ -11903,7 +11903,7 @@ Disassembly of section .text:
     5f02:	0e 94 3f 30 	call	0x607e	;  0x607e
     5f06:	7f 93       	push	r23
     5f08:	6f 93       	push	r22
-    5f0a:	82 e0       	ldi	r24, 0x02	; 2
+    5f0a:	84 e0       	ldi	r24, 0x04	; 4
     5f0c:	92 e0       	ldi	r25, 0x02	; 2
     5f0e:	9f 93       	push	r25
     5f10:	8f 93       	push	r24
@@ -11923,7 +11923,7 @@ Disassembly of section .text:
     5f2e:	8f 93       	push	r24
     5f30:	7f 93       	push	r23
     5f32:	6f 93       	push	r22
-    5f34:	88 e0       	ldi	r24, 0x08	; 8
+    5f34:	8a e0       	ldi	r24, 0x0A	; 10
     5f36:	92 e0       	ldi	r25, 0x02	; 2
     5f38:	9f 93       	push	r25
     5f3a:	8f 93       	push	r24
@@ -11937,12 +11937,12 @@ Disassembly of section .text:
     5f4c:	de bf       	out	0x3e, r29	; 62
     5f4e:	0f be       	out	0x3f, r0	; 63
     5f50:	cd bf       	out	0x3d, r28	; 61
-    5f52:	80 e6       	ldi	r24, 0x60	; 96
+    5f52:	82 e6       	ldi	r24, 0x62	; 98
     5f54:	97 e0       	ldi	r25, 0x07	; 7
     5f56:	0e 94 51 20 	call	0x40a2	;  0x40a2
     5f5a:	66 eb       	ldi	r22, 0xB6	; 182
     5f5c:	71 e0       	ldi	r23, 0x01	; 1
-    5f5e:	80 e6       	ldi	r24, 0x60	; 96
+    5f5e:	82 e6       	ldi	r24, 0x62	; 98
     5f60:	97 e0       	ldi	r25, 0x07	; 7
     5f62:	0e 94 9c 24 	call	0x4938	;  0x4938
     5f66:	9e 01       	movw	r18, r28
@@ -11952,43 +11952,43 @@ Disassembly of section .text:
     5f6e:	50 e0       	ldi	r21, 0x00	; 0
     5f70:	61 e0       	ldi	r22, 0x01	; 1
     5f72:	70 e0       	ldi	r23, 0x00	; 0
-    5f74:	80 e6       	ldi	r24, 0x60	; 96
+    5f74:	82 e6       	ldi	r24, 0x62	; 98
     5f76:	97 e0       	ldi	r25, 0x07	; 7
     5f78:	0e 94 46 24 	call	0x488c	;  0x488c
-    5f7c:	80 e6       	ldi	r24, 0x60	; 96
+    5f7c:	82 e6       	ldi	r24, 0x62	; 98
     5f7e:	97 e0       	ldi	r25, 0x07	; 7
     5f80:	0e 94 67 20 	call	0x40ce	;  0x40ce
     5f84:	56 c0       	rjmp	.+172    	;  0x6032
-    5f86:	80 e6       	ldi	r24, 0x60	; 96
+    5f86:	82 e6       	ldi	r24, 0x62	; 98
     5f88:	97 e0       	ldi	r25, 0x07	; 7
     5f8a:	0e 94 51 20 	call	0x40a2	;  0x40a2
     5f8e:	6b e8       	ldi	r22, 0x8B	; 139
     5f90:	76 e3       	ldi	r23, 0x36	; 54
-    5f92:	80 e6       	ldi	r24, 0x60	; 96
+    5f92:	82 e6       	ldi	r24, 0x62	; 98
     5f94:	97 e0       	ldi	r25, 0x07	; 7
     5f96:	0e 94 9c 24 	call	0x4938	;  0x4938
-    5f9a:	2f e0       	ldi	r18, 0x0F	; 15
+    5f9a:	21 e1       	ldi	r18, 0x11	; 17
     5f9c:	32 e0       	ldi	r19, 0x02	; 2
     5f9e:	4a e0       	ldi	r20, 0x0A	; 10
     5fa0:	50 e0       	ldi	r21, 0x00	; 0
     5fa2:	61 e0       	ldi	r22, 0x01	; 1
     5fa4:	70 e0       	ldi	r23, 0x00	; 0
-    5fa6:	80 e6       	ldi	r24, 0x60	; 96
+    5fa6:	82 e6       	ldi	r24, 0x62	; 98
     5fa8:	97 e0       	ldi	r25, 0x07	; 7
     5faa:	0e 94 46 24 	call	0x488c	;  0x488c
-    5fae:	21 e2       	ldi	r18, 0x21	; 33
+    5fae:	23 e2       	ldi	r18, 0x23	; 35
     5fb0:	32 e0       	ldi	r19, 0x02	; 2
     5fb2:	44 e1       	ldi	r20, 0x14	; 20
     5fb4:	50 e0       	ldi	r21, 0x00	; 0
     5fb6:	61 e0       	ldi	r22, 0x01	; 1
     5fb8:	70 e0       	ldi	r23, 0x00	; 0
-    5fba:	80 e6       	ldi	r24, 0x60	; 96
+    5fba:	82 e6       	ldi	r24, 0x62	; 98
     5fbc:	97 e0       	ldi	r25, 0x07	; 7
     5fbe:	0e 94 46 24 	call	0x488c	;  0x488c
-    5fc2:	80 e6       	ldi	r24, 0x60	; 96
+    5fc2:	82 e6       	ldi	r24, 0x62	; 98
     5fc4:	97 e0       	ldi	r25, 0x07	; 7
     5fc6:	0e 94 67 20 	call	0x40ce	;  0x40ce
-    5fca:	83 e3       	ldi	r24, 0x33	; 51
+    5fca:	85 e3       	ldi	r24, 0x35	; 53
     5fcc:	92 e0       	ldi	r25, 0x02	; 2
     5fce:	0e 94 f2 36 	call	0x6de4	;  0x6de4
     5fd2:	41 e0       	ldi	r20, 0x01	; 1
@@ -12001,19 +12001,19 @@ Disassembly of section .text:
     5fe2:	a9 f0       	breq	.+42     	;  0x600e
     5fe4:	6b e8       	ldi	r22, 0x8B	; 139
     5fe6:	76 e3       	ldi	r23, 0x36	; 54
-    5fe8:	80 e6       	ldi	r24, 0x60	; 96
+    5fe8:	82 e6       	ldi	r24, 0x62	; 98
     5fea:	97 e0       	ldi	r25, 0x07	; 7
     5fec:	0e 94 9c 24 	call	0x4938	;  0x4938
-    5ff0:	24 e4       	ldi	r18, 0x44	; 68
+    5ff0:	26 e4       	ldi	r18, 0x46	; 70
     5ff2:	32 e0       	ldi	r19, 0x02	; 2
     5ff4:	4e e1       	ldi	r20, 0x1E	; 30
     5ff6:	50 e0       	ldi	r21, 0x00	; 0
     5ff8:	61 e0       	ldi	r22, 0x01	; 1
     5ffa:	70 e0       	ldi	r23, 0x00	; 0
-    5ffc:	80 e6       	ldi	r24, 0x60	; 96
+    5ffc:	82 e6       	ldi	r24, 0x62	; 98
     5ffe:	97 e0       	ldi	r25, 0x07	; 7
     6000:	0e 94 46 24 	call	0x488c	;  0x488c
-    6004:	80 e6       	ldi	r24, 0x60	; 96
+    6004:	82 e6       	ldi	r24, 0x62	; 98
     6006:	97 e0       	ldi	r25, 0x07	; 7
     6008:	0e 94 67 20 	call	0x40ce	;  0x40ce
     600c:	09 c0       	rjmp	.+18     	;  0x6020
@@ -12043,22 +12043,22 @@ Disassembly of section .text:
     6046:	80 32       	cpi	r24, 0x20	; 32
     6048:	30 f4       	brcc	.+12     	;  0x6056
     604a:	90 e0       	ldi	r25, 0x00	; 0
-    604c:	90 93 df 06 	sts	0x06DF, r25	;  0x8006df
-    6050:	80 93 de 06 	sts	0x06DE, r24	;  0x8006de
+    604c:	90 93 e1 06 	sts	0x06E1, r25	;  0x8006e1
+    6050:	80 93 e0 06 	sts	0x06E0, r24	;  0x8006e0
     6054:	06 c0       	rjmp	.+12     	;  0x6062
     6056:	8f e1       	ldi	r24, 0x1F	; 31
     6058:	90 e0       	ldi	r25, 0x00	; 0
-    605a:	90 93 df 06 	sts	0x06DF, r25	;  0x8006df
-    605e:	80 93 de 06 	sts	0x06DE, r24	;  0x8006de
+    605a:	90 93 e1 06 	sts	0x06E1, r25	;  0x8006e1
+    605e:	80 93 e0 06 	sts	0x06E0, r24	;  0x8006e0
     6062:	97 01       	movw	r18, r14
     6064:	48 e0       	ldi	r20, 0x08	; 8
     6066:	50 e0       	ldi	r21, 0x00	; 0
     6068:	61 e0       	ldi	r22, 0x01	; 1
     606a:	70 e0       	ldi	r23, 0x00	; 0
-    606c:	80 e6       	ldi	r24, 0x60	; 96
+    606c:	82 e6       	ldi	r24, 0x62	; 98
     606e:	97 e0       	ldi	r25, 0x07	; 7
     6070:	0e 94 46 24 	call	0x488c	;  0x488c
-    6074:	80 e6       	ldi	r24, 0x60	; 96
+    6074:	82 e6       	ldi	r24, 0x62	; 98
     6076:	97 e0       	ldi	r25, 0x07	; 7
     6078:	0e 94 67 20 	call	0x40ce	;  0x40ce
     607c:	0e cf       	rjmp	.-484    	;  0x5e9a
@@ -13579,7 +13579,7 @@ Disassembly of section .text:
     6cae:	8e 0f       	add	r24, r30
     6cb0:	9f 1f       	adc	r25, r31
     6cb2:	08 95       	ret
-    6cb4:	4a e5       	ldi	r20, 0x5A	; 90
+    6cb4:	4c e5       	ldi	r20, 0x5C	; 92
     6cb6:	52 e0       	ldi	r21, 0x02	; 2
     6cb8:	0e 94 71 36 	call	0x6ce2	;  0x6ce2
     6cbc:	08 95       	ret
@@ -13720,8 +13720,8 @@ Disassembly of section .text:
     6dcc:	61 91       	ld	r22, Z+
     6dce:	71 91       	ld	r23, Z+
     6dd0:	af 01       	movw	r20, r30
-    6dd2:	80 91 d8 07 	lds	r24, 0x07D8	;  0x8007d8
-    6dd6:	90 91 d9 07 	lds	r25, 0x07D9	;  0x8007d9
+    6dd2:	80 91 da 07 	lds	r24, 0x07DA	;  0x8007da
+    6dd6:	90 91 db 07 	lds	r25, 0x07DB	;  0x8007db
     6dda:	0e 94 69 31 	call	0x62d2	;  0x62d2
     6dde:	e2 e0       	ldi	r30, 0x02	; 2
     6de0:	0c 94 4e 35 	jmp	0x6a9c	;  0x6a9c
@@ -13729,8 +13729,8 @@ Disassembly of section .text:
     6de6:	1f 93       	push	r17
     6de8:	cf 93       	push	r28
     6dea:	df 93       	push	r29
-    6dec:	e0 91 d8 07 	lds	r30, 0x07D8	;  0x8007d8
-    6df0:	f0 91 d9 07 	lds	r31, 0x07D9	;  0x8007d9
+    6dec:	e0 91 da 07 	lds	r30, 0x07DA	;  0x8007da
+    6df0:	f0 91 db 07 	lds	r31, 0x07DB	;  0x8007db
     6df4:	23 81       	ldd	r18, Z+3	; 0x03
     6df6:	21 ff       	sbrs	r18, 1
     6df8:	1b c0       	rjmp	.+54     	;  0x6e30
@@ -13740,8 +13740,8 @@ Disassembly of section .text:
     6e00:	f8 01       	movw	r30, r16
     6e02:	81 91       	ld	r24, Z+
     6e04:	8f 01       	movw	r16, r30
-    6e06:	60 91 d8 07 	lds	r22, 0x07D8	;  0x8007d8
-    6e0a:	70 91 d9 07 	lds	r23, 0x07D9	;  0x8007d9
+    6e06:	60 91 da 07 	lds	r22, 0x07DA	;  0x8007da
+    6e0a:	70 91 db 07 	lds	r23, 0x07DB	;  0x8007db
     6e0e:	db 01       	movw	r26, r22
     6e10:	18 96       	adiw	r26, 0x08	; 8
     6e12:	ed 91       	ld	r30, X+

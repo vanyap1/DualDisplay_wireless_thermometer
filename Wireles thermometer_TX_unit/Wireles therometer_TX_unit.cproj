@@ -684,6 +684,14 @@
       <SubType>compile</SubType>
       <Link>lib\uart_hal.h</Link>
     </Compile>
+    <Compile Include="..\Common_resources\lib\wdt_hal.c">
+      <SubType>compile</SubType>
+      <Link>lib\wdt_hal.c</Link>
+    </Compile>
+    <Compile Include="..\Common_resources\lib\wdt_hal.h">
+      <SubType>compile</SubType>
+      <Link>lib\wdt_hal.h</Link>
+    </Compile>
     <Compile Include="config.h">
       <SubType>compile</SubType>
     </Compile>

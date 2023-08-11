@@ -50,14 +50,13 @@ uint16_t param_value2;
 int main(void)
 {
 	
+	WDT_enable();
 	WDT_prescaler_change(0, wdt_timeout_1s);
    
-    sei();
-    stdout = &mystdout;
-    //WDT_enable();
-	//WDT_off(1);
-   
     
+    stdout = &mystdout;
+   
+    sei();
     
     
     char charArray[64] = "test string";
@@ -107,7 +106,7 @@ int main(void)
 	//printf("AT+POWE\r\n");
 	//_delay_ms(200);
 	
-	
+	//wdr();
 	printf("AT+RFID%04u\r\n" , (uint16_t *)RFID);
 	_delay_ms(500);
 	printf("AT+DVID%04u\r\n" , (uint16_t *)DVID);
@@ -120,17 +119,17 @@ int main(void)
 	u8g2_SendBuffer(&u8g2);
 	
 	
-   
+   wdr();
     double temp = 0.0f;
 	bool newDataAvailable = true;
 	bool TxResponseDataValid = false;
 	bool overheatDetect = false;
     uint16_t tempRaw = 0;
 	uint16_t dataValidCounter = 0;
-	set_pin_level(&lcd_blk, true);
+	 set_pin_level(&lcd_blk, true);
 	while (1) 
     {
-		
+		//wdr();
 		if(newDataAvailable){
 			
 			if(TxResponseDataValid){
@@ -183,7 +182,7 @@ int main(void)
 			}
 			
 		}
-	if (dataValidCounter < 40){
+	if (dataValidCounter < 240){
 		dataValidCounter++;
 	}else{
 		TxResponseDataValid = false;

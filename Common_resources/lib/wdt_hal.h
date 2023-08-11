@@ -25,7 +25,7 @@ SOFTWARE.
 #ifndef WDT_HAL_H_
 #define WDT_HAL_H_
 
-#include <stdint.h>
+
 #include "config.h"
 #include <avr/io.h>
 #include <util/delay.h>

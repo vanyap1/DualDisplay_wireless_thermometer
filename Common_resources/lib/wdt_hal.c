@@ -28,9 +28,9 @@ SOFTWARE.
 void WDT_off(uint8_t int_enable)
 {
 	
-	if(int_enable != 0){
-		cli();
-	}
+	//if(int_enable != 0){
+		//cli();
+	//}
 	
 	wdr();
 	/* Clear WDRF in MCUSR */
@@ -42,9 +42,9 @@ void WDT_off(uint8_t int_enable)
 	/* Turn off WDT */
 	WDTCSR = 0x00;
 	
-	if(int_enable != 0){
-		sei();
-	}
+	//if(int_enable != 0){
+		//sei();
+	//}
 }
 
 void WDT_enable(void){
@@ -57,17 +57,18 @@ void WDT_enable(void){
 
 void WDT_prescaler_change(uint8_t int_enable,wdt_timeout_e timeout)
 {
-	if(int_enable != 0){
-		cli();
-	}
+	//if(int_enable != 0){
+		//cli();
+	//}
 	wdr();
+	WDTCSR = 0;
 	/* Start timed equence */
 	WDTCSR |= (1<<WDCE) | (1<<WDE);
 	/* Set new prescaler(time-out) value = 64K cycles (~0.5 s) */
 	WDTCSR =  (timeout <<WDP0) | (1<<WDE) | ( 1 << WDP3);
-	if(int_enable != 0){
-		sei();
-	}
+	//if(int_enable != 0){
+		//sei();
+	//}
 }
 
 

@@ -17,6 +17,7 @@
 #include "twi_hal.h"
 #include "rtc.h"
 #include "ds18S20.h"
+#include "wdt_hal.h"
 #include "string.h"
 #include "float.h"
 #include "stdbool.h"
@@ -29,6 +30,7 @@ gpio RF_mode = {(uint8_t *)&PORTD , PORTD4};
 static FILE mystdout = FDEV_SETUP_STREAM((void *)uart_send_byte, NULL, _FDEV_SETUP_WRITE);
 u8g2_t u8g2;
 uint8_t serial_buff[128];
+uint8_t display_line[64];
 uint16_t att = 0;
 
 
@@ -40,7 +42,13 @@ uint16_t  BAUD=4;
 
 int main(void)
 {
+	WDT_off(1);
+	WDT_prescaler_change(0, wdt_timeout_1s);
+	
 	sei();
+	//WDT_enable();
+	//
+	
 	stdout = &mystdout;
 	TSDS18x20 DS18x20;
 	TSDS18x20 *pDS18x20 = &DS18x20;
@@ -52,6 +60,7 @@ int main(void)
 	
 	uart_init(9600,0);
 	
+	
 	//twi_init(400000);
 	//rtc_set(&sys_rtc);
 	
@@ -60,14 +69,23 @@ int main(void)
 	u8g2_SetFlipMode(&u8g2, 1);
 	u8g2_SetContrast(&u8g2, 120);
 	
-	set_pin_dir(&lcd_blk , PORT_DIR_OUT); set_pin_level(&lcd_blk, true);
+	set_pin_dir(&lcd_blk , PORT_DIR_OUT); 
 	set_pin_dir(&RF_mode , PORT_DIR_OUT); set_pin_level(&RF_mode, true);
 	
 	
 	u8g2_ClearBuffer(&u8g2);
 	//u8g2_SetFont(&u8g2, u8g2_font_5x8_t_cyrillic);
-	u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
-	
+    u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
+    u8g2_DrawStr(&u8g2, 1, 10, (void *)"RX MODULE");
+    
+    sprintf(display_line, "RFID-%04u", RFID);
+    u8g2_DrawStr(&u8g2, 1, 20, (void *)display_line);
+    sprintf(display_line, "DVID-%04u\n; RFC-%03u",DVID);
+    u8g2_DrawStr(&u8g2, 1, 30, (void *)display_line);
+    sprintf(display_line, "RFC-%03u", RFC);
+    u8g2_DrawStr(&u8g2, 1, 40, (void *)display_line);
+    u8g2_DrawStr(&u8g2, 1, 50, (void *)"Watchdog run" );
+    u8g2_SendBuffer(&u8g2);
 	
 	if (DS18x20_Init(pDS18x20,&PORTB,1))
 	{
@@ -105,17 +123,19 @@ int main(void)
 	
 	u8g2_SendBuffer(&u8g2);
     double temp = 0.0f;
-	
+	wdr();
+	set_pin_level(&lcd_blk, true);
 	while (1) 
     {	
-		
+		wdr();
 		
 		
 		if (DS18x20_MeasureTemperature(pDS18x20))
 		{
 			//_delay_ms(200);
 			temp=DS18x20_TemperatureValue(pDS18x20)*10;
-			printf("val:%04x:%04x:e\n\r" , (uint16_t)temp, (uint16_t)temp); //For checking after receiving in remote module
+			sprintf(charArray, "val:%04x:%04x:e\n\r" , (uint16_t)temp, (uint16_t)temp); //For checking after receiving in remote module
+			uart_send_string((uint8_t*)charArray);
 			temp = temp*0.1;
 			if (att>999){
 				sprintf(charArray , "%03d ", (uint16_t)temp);
@@ -126,14 +146,15 @@ int main(void)
 			u8g2_SetFont(&u8g2, u8g2_font_spleen32x64_mf);
 			u8g2_DrawStr(&u8g2, 1, 50, (char *)charArray);
 			u8g2_SendBuffer(&u8g2);
+			wdr();
 		}else{
 			u8g2_ClearBuffer(&u8g2);
 			u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
 			u8g2_DrawStr(&u8g2, 1, 10, (char *)"DS18B20 CRC ERROR");
 			u8g2_DrawStr(&u8g2, 1, 20, (char *)"TRU TO INIT AGAIN");
 			u8g2_SendBuffer(&u8g2);
-			printf("val:ffff:ffff:e\r\n");
-			
+			sprintf(charArray, "val:ffff:ffff:e\r\n");
+			uart_send_string((uint8_t*)charArray);
 			if (DS18x20_Init(pDS18x20,&PORTB,1))
 			{
 				u8g2_SetFont(&u8g2, u8g2_font_6x10_mf);
@@ -146,15 +167,15 @@ int main(void)
 			_delay_ms(200);
 		}
 		if (serial_complete()){
-			uint8_t const *data_p = (uint8_t *)serial_read_data();
-			uint8_t val = parseString((uint8_t *)data_p);
-			if (val < 32){
-				att = val;
-			}else{
-				att = 31;
-			}
-			u8g2_DrawStr(&u8g2, 1, 8, (uint8_t *)data_p);
-			u8g2_SendBuffer(&u8g2);
+			//uint8_t const *data_p = (uint8_t *)serial_read_data();
+			//uint8_t val = parseString((uint8_t *)data_p);
+			//if (val < 32){
+				//att = val;
+			//}else{
+				//att = 31;
+			//}
+			//u8g2_DrawStr(&u8g2, 1, 8, (uint8_t *)data_p);
+			//u8g2_SendBuffer(&u8g2);
 		}
     }
 }

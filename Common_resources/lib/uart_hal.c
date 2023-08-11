@@ -56,7 +56,7 @@ ISR(USART0_RX_vect){
 	
 	//volatile static uint16_t rx_write_pos = 0;
 	test_array[rx_count] = UDR0;
-	if (test_array[rx_count] == 0x0A){
+	if (test_array[rx_count] == 0x0D){
 		read_complete = true;
 		test_array[rx_count+1] = 0;
 	}

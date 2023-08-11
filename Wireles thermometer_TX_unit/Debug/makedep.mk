@@ -250,5 +250,7 @@
 
 ..\Common_resources\lib\uart_hal.c
 
+..\Common_resources\lib\wdt_hal.c
+
 main.c
 
